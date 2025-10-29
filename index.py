@@ -51,8 +51,28 @@ class DataConnect:
       self.cursor.execute(query, (new_category_id, new_category_title, category_id, category_title))
       self.connection.commit()
       print("Category updated successfully")
-    except:
-      pass
+    except IndexError:
+      print("Invalid Index")
+  
+  def delete_category(self, index):
+    categories = self.view_categories()
+
+    if not categories:
+      return
+    try:
+      category = categories[index]
+      category_id, category_title = category
+
+      query = """
+        DELETE FROM categories
+        WHERE category_id=%s, category_title=%s
+      """
+      self.cursor.execute(query, (category_id, category_title))
+      self.connection.commit()
+      print("Category deleted successfully")
+    except IndexError:
+      print('Invalid Index')
+
 
 
 
