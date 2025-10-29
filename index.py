@@ -72,7 +72,18 @@ class DataConnect:
       print("Category deleted successfully")
     except IndexError:
       print('Invalid Index')
-
+  
+  # def view_news(self):
+  #   query = "SELECT news_id, news_title, news_content, date_created, date_updated FROM news"
+  #   self.cursor.execute(query)
+  #   rows = self.cursor.fetchall()
+  #   if not rows:
+  #     print("no news found")
+  #   else:
+  #     print("\n News list")
+  #     for i, row in enumerate(rows, 1):
+  #       news_id, news_title, news_content, date_created, date_updated = row
+  #       print(f"News ID: {news_id}, \nNews Content: {news_content}, \nDate Created: {date_created}, Date Updated: {date_updated}")
 
 
 
