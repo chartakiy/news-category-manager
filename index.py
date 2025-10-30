@@ -12,35 +12,35 @@ class DataConnect:
     self.cursor = self.connection.cursor()
     print('Connected to the database')
   
-  # def view_categories(self):
-  #   query = "SELECT category_id, category_title FROM categories"
-  #   self.cursor.execute(query)
-  #   rows = self.cursor.fetchall()
-  #   if not rows:
-  #     print("no categories found")
-  #   else:
-  #     print("\n Categories list")
-  #     for i, row in enumerate(rows, 1):
-  #       category_id, category_title = row
-  #       print(f"Category ID: {category_id}, Category Title: {category_title}")
-    
-  #   return rows
-
   def view_categories(self):
     query = "SELECT category_id, category_title FROM categories"
     self.cursor.execute(query)
     rows = self.cursor.fetchall()
-
     if not rows:
-        print("No categories found.")
+      print("no categories found")
     else:
-        print("\n========== Categories List ==========")
-        for i, row in enumerate(rows, 1):
-            category_id, category_title = row
-            print(f"{i}. {category_title} (ID: {category_id})")
-        print("=====================================")
+      print("\n Categories list")
+      for i, row in enumerate(rows, 1):
+        category_id, category_title = row
+        print(f"{i}. Category ID: {category_id}, Category Title: {category_title}")
     
-    return rows 
+    return rows
+
+  # def view_categories(self):
+  #   query = "SELECT category_id, category_title FROM categories"
+  #   self.cursor.execute(query)
+  #   rows = self.cursor.fetchall()
+
+  #   if not rows:
+  #       print("No categories found.")
+  #   else:
+  #       print("\n========== Categories List ==========")
+  #       for i, row in enumerate(rows, 1):
+  #           category_id, category_title = row
+  #           print(f"{i}. {category_title} (ID: {category_id})")
+  #       print("=====================================")
+    
+  #   return rows 
   
   def add_category(self, category_id, category_title):
     query = "INSERT INTO categories VALUES (%s, %s)"
