@@ -79,6 +79,7 @@ class DataConnect:
     query = "SELECT news_id, news_title, news_content, date_created, date_updated FROM news"
     self.cursor.execute(query)
     rows = self.cursor.fetchall()
+
     if not rows:
       print("no news found")
     else:
@@ -99,11 +100,12 @@ class DataConnect:
 
         index = int(choice)
         if 1 <= index <= len(rows):
-          news_id, news_title, news_content, date_created, date_updated = row[index - 1]
-          print(f"\nHeadline: {news_title}\n{news_content}")
-          print(f"\n Date Created: {date_created}, Date Updated: {date_updated}")
+          news_id, news_title, news_content, date_created, date_updated = rows[index - 1]
+          print(f"\nHeadline: {news_title}\n\nNews Content: {news_content}")
+          print(f"\nDate Created: {date_created}, Date Updated: {date_updated if date_updated else '-'}")
         else:
           print("Invalid number, pls input a valid one from the list above")
+    return rows
   
   def add_news(self, news_id, category_id, news_title, news_content, date_created, date_updated):
     query = "INSERT INTO news VALUES (%s, %s, %s, %s, %s, %s)"
@@ -187,6 +189,44 @@ def category_manager(db):
     else:
       print("Invalid choice. Try again.")
 
+def news_mananger(db):
+  while True:
+    print("\n ======================= News Manager ======================= ")
+    print("1. View All News\n2. Add News\n3. Edit News\n4. Delete News\n5. Go Back")
+    choice = input("your choice: ")
+
+    if choice == '1':
+      db.view_news()
+    elif choice == '2':
+      news_id = input("News ID: ")
+      news_title = input("News Title: ")
+      category_id = input("Category ID: ")
+      news_content = input("News Content: ")
+      date_created = None
+      date_updated = None
+      db.add_news(news_id, category_id, news_title, news_content, date_created, date_updated)
+
+    # elif choice == '3':
+    #   categories = db.view_categories()
+    #   if categories:
+    #     try:
+    #       index = int(input("Enter news number to update: ")) - 1
+    #       db.edit_category(index)
+    #     except ValueError:
+    #       print("Please enter a valid number.")
+    # elif choice == '4':
+    #   categories = db.view_news()
+    #   if categories:
+    #     try:
+    #       index = int(input("Enter news number to delete: ")) - 1
+    #       db.delete_category(index)
+    #     except ValueError:
+    #       print("Please enter a valid number.")
+    # elif choice == "5":
+    #   break
+    # else:
+    #   print("Invalid choice. Try again.")
+
 
 def main():
   db = DataConnect()
@@ -200,7 +240,7 @@ def main():
     if choice == "1":
       category_manager(db)
     elif choice == "2":
-      print("welcome to News")
+      news_mananger(db)
     elif choice == "3":
       print("exiting the program")
     else:
