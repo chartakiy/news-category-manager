@@ -198,6 +198,10 @@ def category_manager(db):
           db.delete_category(index)
         except ValueError:
           print("Please enter a valid number.")
+    elif choice == "5":
+      break
+    else:
+      print("Invalid choice. Try again.")
 
 
 def main():
